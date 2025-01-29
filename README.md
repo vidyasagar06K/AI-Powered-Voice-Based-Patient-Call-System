@@ -1,4 +1,4 @@
-# Voice-Based Patient Call System
+# AI Powered Voice Based Patient Call System
 
 ## Quick Navigation
 - [Frontend Setup](#steps-to-run-frontend-main-app)
