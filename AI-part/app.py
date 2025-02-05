@@ -17,7 +17,7 @@ app.add_middleware(
 )
 
 @app.post("/audio_to_text/")
-def audio_convertor(audio_file: UploadFile = File(...), language: str= Form(...)):
+def audio_convertor(audio_file: UploadFile = File(...)):
 
     try:
         print("enterd")
@@ -35,7 +35,7 @@ def audio_convertor(audio_file: UploadFile = File(...), language: str= Form(...)
         with open(audio_path, "wb") as buffer:
             shutil.copyfileobj(audio_file.file, buffer)
         print("calling function")
-        result=audio_to_text.convertor(audio_path,language)
+        result=audio_to_text.convertor(audio_path)
 
         shutil.rmtree("audio")
 
