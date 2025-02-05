@@ -1,11 +1,11 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, SafeAreaView, Alert, FlatList } from 'react-native';
 import { router } from 'expo-router';
 import { MaterialIcons } from '@expo/vector-icons';
 import axios from 'axios';  // Import axios
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { Swipeable } from 'react-native-gesture-handler'; 
+import { Swipeable } from 'react-native-gesture-handler';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const AddPatientScreen = () => {
@@ -18,9 +18,9 @@ const AddPatientScreen = () => {
   const [admitDate, setAdmitDate] = useState('');
   const [patients, setPatients] = useState([]);
 
-  
+
   const handleAddPatient = async () => {
-   
+
     if (!patientId || !name || !dateofBirth || !diagnosis || !wardBedNo || !mobile || !admitDate) {
       Alert.alert('Error', 'Please fill all fields.');
       return;
@@ -31,8 +31,8 @@ const AddPatientScreen = () => {
 
     try {
       // Send data to backend API (POST request)
-      const response = await axios.post('http://localhost:5000/api/patients', newPatient);
-      
+      const response = await axios.post('http://192.168.215.108:5000/api/patients', newPatient);
+
       // If successful, reset the fields and update patients state
       if (response.status === 201) {
         setPatients([...patients, newPatient]);
@@ -56,18 +56,18 @@ const AddPatientScreen = () => {
   // Fetch all patients from the backend (GET request)
   const fetchPatients = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/patients');
+      const response = await axios.get('http://192.168.215.108:5000/api/patients');
       setPatients(response.data);
     } catch (error) {
       console.error('Error fetching patients:', error);
     }
   };
-    useEffect(() => { 
-      fetchPatients(); 
-    }, []);
-    
-  
-  
+  useEffect(() => {
+    fetchPatients();
+  }, []);
+
+
+
 
   const handleSwipeRight = async (patient) => {
     try {
@@ -91,7 +91,7 @@ const AddPatientScreen = () => {
   );
 
   // Fetch patients when component mounts
-  
+
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -123,7 +123,7 @@ const AddPatientScreen = () => {
               onChangeText={setName}
             />
           </View>
-         <View style={styles.inputRow}>
+          <View style={styles.inputRow}>
             <Text style={styles.label}>Date of Birth:</Text>
             <TextInput
               style={styles.input}
@@ -181,7 +181,7 @@ const AddPatientScreen = () => {
           </TouchableOpacity>
         </ScrollView>
 
-       
+
       </SafeAreaView>
     </GestureHandlerRootView>
   );
