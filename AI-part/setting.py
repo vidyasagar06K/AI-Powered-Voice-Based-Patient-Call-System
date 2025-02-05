@@ -1,8 +1,7 @@
 import os 
-import dotenv
+from dotenv import load_dotenv
 
-dotenv.load_dotenv()
+load_dotenv()
 
-SPEECH_KEY=os.getenv("speech_key")
-REGION=os.getenv("region")
-ENDPOINT=os.getenv("endpoint")
+SPEECH_KEY = os.getenv("speech_key")
+REGION = os.getenv("region")
