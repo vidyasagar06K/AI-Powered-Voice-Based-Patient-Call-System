@@ -25,7 +25,7 @@ const NurseListScreen = () => {
   // Load nurse list from the backend
   const loadNurses = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/nurses');  // Replace with your backend URL
+      const response = await axios.get('http://192.168.215.108:5000/api/nurses');  // Replace with your backend URL
       setNurses(response.data);
       await AsyncStorage.setItem('nurseList', JSON.stringify(response.data));
     } catch (error) {
@@ -47,7 +47,7 @@ const NurseListScreen = () => {
     };
     saveNursesToStorage();
   }, [nurses]);
- 
+
 
 
 
@@ -68,7 +68,7 @@ const NurseListScreen = () => {
   // Handle deleting a nurse from the list
   const handleDeleteNurse = async (nurseId) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/nurses/${nurseId}`, {
+      const response = await fetch(`http://192.168.215.108:5000/api/nurses/${nurseId}`, {
         method: 'DELETE',
       });
       if (response.ok) {
@@ -80,7 +80,7 @@ const NurseListScreen = () => {
       console.error('Error:', error);
     }
   };
-  
+
   // Use focus effect to reload the list every time the screen is focused
   useFocusEffect(
     React.useCallback(() => {
@@ -111,7 +111,7 @@ const NurseListScreen = () => {
         </TouchableOpacity>
       </View>
       <FlatList
-      key={columns}
+        key={columns}
         data={nurses}
         renderItem={({ item }) => {
           const initials = item.name
@@ -156,7 +156,7 @@ const NurseListScreen = () => {
         keyExtractor={(item) => item.nurseId}
         numColumns={columns} // Use dynamic column count
         contentContainerStyle={styles.listContainer} // Add spacing between rows
-        
+
         style={styles.nurseList}
       />
     </SafeAreaView>
@@ -214,14 +214,14 @@ const styles = StyleSheet.create({
     padding: 20,
     margin: 10,
     shadowColor: '#000',
-    
+
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 4,
     elevation: 2,
-    height:250,
-    width:270,
-    
+    height: 250,
+    width: 270,
+
   },
   nurseInfo: {
     flexDirection: 'row',
@@ -278,7 +278,7 @@ const styles = StyleSheet.create({
     bottom: 20, // Distance from the bottom edge
     left: '55%', // Center horizontally
     transform: [{ translateX: -50 }], // Adjust for exact centering
-    
+
     backgroundColor: '#5b50af',
     padding: 9,
     borderRadius: 5,
