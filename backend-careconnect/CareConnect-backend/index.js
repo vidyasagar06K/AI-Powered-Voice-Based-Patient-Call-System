@@ -17,7 +17,7 @@ connectDB();
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(cors({
-  origin: "http://localhost:8081",
+  origin: true, // Allow all origins during development
   credentials: true,
 }));
 
@@ -33,8 +33,9 @@ app.use('/api/requests', requestRoutes);
 const PORT = process.env.PORT || 5000;
 
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is also accessible at http://YOUR_IP:${PORT}`);
 });
 
 
