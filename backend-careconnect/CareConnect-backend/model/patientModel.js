@@ -1,5 +1,18 @@
 import { Schema, model } from 'mongoose';
 
+const audioRecordingSchema = new Schema({
+  fileName: String,
+  filePath: String,
+  uploadDate: {
+    type: Date,
+    default: Date.now
+  },
+  patientName: String,
+  transcription: String,
+  priority: String,
+  problem: String
+});
+
 const patientSchema = new Schema({
   patientId: {
     type: String,
@@ -30,7 +43,8 @@ const patientSchema = new Schema({
   admitDate: {
     type: Date,
     required: true,
-  }
+  },
+  audioRecordings: [audioRecordingSchema]
 });
 
 const Patient = model('Patient', patientSchema);
