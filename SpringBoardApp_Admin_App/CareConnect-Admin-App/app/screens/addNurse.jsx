@@ -15,7 +15,7 @@ const AddNurseScreen = () => {
   const [wardNo, setWardNo] = useState('');
   const [nurses, setNurses] = useState([]);
 
-  const handleAddNurse = async () => { 
+  const handleAddNurse = async () => {
     if (!nurseId || !name || !mobileOrEmail || !department || !wardNo) {
       Alert.alert('Error', 'Please fill all fields.');
       return;
@@ -24,12 +24,12 @@ const AddNurseScreen = () => {
     const newNurse = { nurseId, name, mobileOrEmail, department, wardNo };
 
     try {
-      await axios.post('http://localhost:5000/api/nurses', newNurse);
+      await axios.post('http://192.168.215.108:5000/api/nurses', newNurse);
 
-      
+
       setNurses([...nurses, newNurse]);
 
-     
+
       setNurseId('');
       setName('');
       setMobileOrEmail('');
@@ -43,17 +43,17 @@ const AddNurseScreen = () => {
     }
   };
 
-  const fetchNurses = async () => { 
+  const fetchNurses = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/nurses');
-      setNurses(response.data); 
+      const response = await axios.get('http://192.168.215.108:5000/api/nurses');
+      setNurses(response.data);
     } catch (error) {
       console.error('Error fetching nurses:', error);
-   }
+    }
   };
 
-  useEffect(() => { 
-    fetchNurses(); 
+  useEffect(() => {
+    fetchNurses();
   }, []);
 
   const handleSwipeRight = async (nurse) => {
@@ -79,72 +79,72 @@ const AddNurseScreen = () => {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-    <SafeAreaView style={styles.container}>
-      {/* Back Button */}
-      <TouchableOpacity onPress={() => router.push('/screens/nurselist')} style={styles.backButton} activeOpacity={0.7}>
-        <MaterialIcons name="arrow-back" size={28} color="#000" />
-      </TouchableOpacity>
-      <Text style={styles.title}>Add Nurse</Text>
-
-      <ScrollView contentContainerStyle={styles.formContainer}>
-        {/* Form Fields */}
-        <View style={styles.inputRow}>
-          <Text style={styles.label}>Nurse ID:</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Enter Nurse ID"
-            value={nurseId}
-            onChangeText={setNurseId}
-          />
-        </View>
-
-        <View style={styles.inputRow}>
-          <Text style={styles.label}>Name:</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Enter Name"
-            value={name}
-            onChangeText={setName}
-          />
-        </View>
-
-        <View style={styles.inputRow}>
-          <Text style={styles.label}>Mobile/Email:</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Enter Mobile No/Email"
-            value={mobileOrEmail}
-            onChangeText={setMobileOrEmail}
-          />
-        </View>
-
-        <View style={styles.inputRow}>
-          <Text style={styles.label}>Department:</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Enter Department"
-            value={department}
-            onChangeText={setDepartment}
-          />
-        </View>
-
-        <View style={styles.inputRow}>
-          <Text style={styles.label}>Ward No:</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Enter Ward No"
-            value={wardNo}
-            onChangeText={setWardNo}
-          />
-        </View>
-
-        <TouchableOpacity style={styles.button} onPress={handleAddNurse}>
-          <Text style={styles.buttonText}>Add Nurse</Text>
+      <SafeAreaView style={styles.container}>
+        {/* Back Button */}
+        <TouchableOpacity onPress={() => router.push('/screens/nurselist')} style={styles.backButton} activeOpacity={0.7}>
+          <MaterialIcons name="arrow-back" size={28} color="#000" />
         </TouchableOpacity>
-      </ScrollView>
+        <Text style={styles.title}>Add Nurse</Text>
 
-      
-    </SafeAreaView>
+        <ScrollView contentContainerStyle={styles.formContainer}>
+          {/* Form Fields */}
+          <View style={styles.inputRow}>
+            <Text style={styles.label}>Nurse ID:</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Enter Nurse ID"
+              value={nurseId}
+              onChangeText={setNurseId}
+            />
+          </View>
+
+          <View style={styles.inputRow}>
+            <Text style={styles.label}>Name:</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Enter Name"
+              value={name}
+              onChangeText={setName}
+            />
+          </View>
+
+          <View style={styles.inputRow}>
+            <Text style={styles.label}>Mobile/Email:</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Enter Mobile No/Email"
+              value={mobileOrEmail}
+              onChangeText={setMobileOrEmail}
+            />
+          </View>
+
+          <View style={styles.inputRow}>
+            <Text style={styles.label}>Department:</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Enter Department"
+              value={department}
+              onChangeText={setDepartment}
+            />
+          </View>
+
+          <View style={styles.inputRow}>
+            <Text style={styles.label}>Ward No:</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Enter Ward No"
+              value={wardNo}
+              onChangeText={setWardNo}
+            />
+          </View>
+
+          <TouchableOpacity style={styles.button} onPress={handleAddNurse}>
+            <Text style={styles.buttonText}>Add Nurse</Text>
+          </TouchableOpacity>
+        </ScrollView>
+
+
+      </SafeAreaView>
     </GestureHandlerRootView>
   );
 };
