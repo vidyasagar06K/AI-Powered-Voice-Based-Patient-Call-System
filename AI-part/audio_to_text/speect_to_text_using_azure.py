@@ -1,49 +1,38 @@
-import requests
+from azure.cognitiveservices.speech import SpeechConfig, SpeechRecognizer, AudioConfig, AutoDetectSourceLanguageConfig, ResultReason
 from setting import *
 
 
 class speech_to_text:
 
     def __init__(self):
-        self.speech_key = SPEECH_KEY
-        self.region = REGION
-        self.endpoint = ENDPOINT
+        self.speech_config = SpeechConfig(subscription=SPEECH_KEY, region=REGION)
+        self.languages=["en-US", "hi-IN"]
 
-        self.headers = {
-            "Ocp-Apim-Subscription-Key": self.speech_key,
-            "Content-Type": "audio/wav",
-            "Accept": "application/json"
-        }
-        self.params_english = {
-            "language": "en-US"
-        }
-        self.params_hindi = {
-            "language": "hi-IN"  # Set the language to Hindi
-        }
+        self.auto_detect_config = AutoDetectSourceLanguageConfig(languages=self.languages)
 
-    def convertor(self,audio,language):
+
+    def convertor(self,audio):
         print(audio)
-        with open(audio, "rb") as audio_file:
-            audio_data = audio_file.read()
+        audio_input = AudioConfig(filename=audio)
 
-        response=""
-        # Send POST request
-        if language=="hindi":
-            response = requests.post(self.endpoint, headers=self.headers, params=self.params_hindi, data=audio_data)
-        elif language=="english":
-            response = requests.post(self.endpoint, headers=self.headers, params=self.params_english, data=audio_data)
+        speech_recognizer = SpeechRecognizer(
+        speech_config=self.speech_config,
+        auto_detect_source_language_config=self.auto_detect_config,
+        audio_config=audio_input
+        )
+
+        result = speech_recognizer.recognize_once()
 
         # Process response
-        print(response)
+        print(result)
 
-        if response.status_code == 200:
-            # print("Response:", response.json())
-            response_data=response.json()
-            # print(response_data['DisplayText'])
-            return response_data['DisplayText']
+        if result.reason == ResultReason.RecognizedSpeech:  # Use ResultReason directly
+            return result.text
         else:
-            print(f"Error: {response.status_code}, Message: {response.text}")
-
+            return {
+                "error": "Speech recognition failed",
+                "reason": str(result.reason)
+            }
 
 audio_to_text=speech_to_text()
 
