@@ -25,7 +25,7 @@ export default function LoginScreen() {
 
     const handleLogin = async () => {
         try {
-            const response = await axios.post('http://192.168.45.108:5000/api/patients/login', { id, password });
+            const response = await axios.post('http://192.168.215.108:5000/api/patients/login', { id, password });
             const data = response.data;
             if (response.status === 200) {
                 const patienttoken = data.patienttoken;
@@ -130,4 +130,3 @@ const styles = StyleSheet.create({
         right: 24,
     },
 });
-
